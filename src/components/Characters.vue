@@ -45,7 +45,9 @@ export default {
       this.loadCharacters(urls.next)
     },
     characterData(c) {
-      return `tipo: ${c.type} edad: ${c.age}`
+      return `Origen: ${c.origin.name}
+      Estado: ${c.status}
+      Especie: ${c.species}`
     },
   },
   created() {
