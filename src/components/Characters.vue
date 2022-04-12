@@ -39,10 +39,10 @@ export default {
       console.log(this.characters);
     },
     async prev(){
-      this.loadCharacters(urls.prev)
+      this.loadCharacters(this.urls.prev)
     },
     async next(){
-      this.loadCharacters(urls.next)
+      this.loadCharacters(this.urls.next)
     },
     characterData(c) {
       return `Origen: ${c.origin.name}
