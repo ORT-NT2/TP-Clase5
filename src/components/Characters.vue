@@ -6,14 +6,14 @@
           <div class="card-body">
             <img :src="c.image" class="card-img-top" />
             <h5 class="card-title">{{ c.name }}</h5>
-            <p class="card-text"> {{characterData(c)}}</p>
+            <p class="card-text">{{ characterData(c) }}</p>
           </div>
         </div>
       </div>
     </div>
     <div id="buttons">
-      <button id="btnPrev" @click="prev()">Previous</button>
-      <button id="btnNext" @click="next()">Next</button>
+      <button id="btnPrev" class="page-item" @click="prev()">Previous</button>
+      <button id="btnNext" class="page-item" @click="next()">Next</button>
     </div>
   </div>
 </template>
@@ -25,29 +25,29 @@ export default {
   data() {
     return {
       characters: [],
-      urls: null
+      urls: null,
     };
   },
   methods: {
     async loadCharacters(url = "https://rickandmortyapi.com/api/character") {
       const response = await axios.get(url);
-      const res= response.data;
+      const res = response.data;
       this.characters = res.results;
-      this.urls = {prev: res.info.prev, next: res.info.next}
-      document.getElementById("btnPrev").disabled= !this.urls.prev
-      document.getElementById("btnNext").disabled= !this.urls.next
+      this.urls = { prev: res.info.prev, next: res.info.next };
+      document.getElementById("btnPrev").disabled = !this.urls.prev;
+      document.getElementById("btnNext").disabled = !this.urls.next;
       console.log(this.characters);
     },
-    async prev(){
-      this.loadCharacters(this.urls.prev)
+    async prev() {
+      this.loadCharacters(this.urls.prev);
     },
-    async next(){
-      this.loadCharacters(this.urls.next)
+    async next() {
+      this.loadCharacters(this.urls.next);
     },
     characterData(c) {
       return `Origen: ${c.origin.name}
       Estado: ${c.status}
-      Especie: ${c.species}`
+      Especie: ${c.species}`;
     },
   },
   created() {
