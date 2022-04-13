@@ -1,5 +1,11 @@
 <template>
   <div>
+    <select id="status-filter" class="form-select" @change="filterByStatus">
+        <option selected>Select state</option>
+        <option value="1">Alive</option>
+        <option value="2">Dead</option>
+        <option value="3">Unknown</option>
+    </select>
     <div class="row">
       <div :key="c.id" v-for="c in characters" class="col-3 mt-4">
         <div class="card" style="width: 18rem">
@@ -48,6 +54,11 @@ export default {
       return `Origen: ${c.origin.name}
       Estado: ${c.status}
       Especie: ${c.species}`;
+    },
+    filterByStatus(){
+    const e = document.getElementById('status-filter')
+    const status = e.options[e.selectedIndex].text
+    this.loadCharacters(`https://rickandmortyapi.com/api/character?status=${status}`)
     },
   },
   created() {
