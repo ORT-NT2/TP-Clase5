@@ -6,6 +6,9 @@
       <p class="card-text">Estado: {{ character.status }}</p>
       <p class="card-text">Especie: {{ character.species }}</p>
       <p class="card-text">Origen: {{ character.origin.name }}</p>
+      <p class="card-text">Genero: {{ character.gender }}</p>
+      <p class="card-text">Ultimo paradero: {{ character.location.name }}</p>
+      <p class="card-text">Primera Aparición: {{ episodeTitle }}</p>
     </div>
   </div>
 </template>
@@ -17,18 +20,25 @@ export default {
   name: "Details",
   data() {
     return {
-      character: {},
       id: this.$route.params.id,
+      character: Object,
+      episodeTitle:  String,
     };
   },
   created() {
-    this.loadCharacter()
+    this.loadCharacter();
   },
   methods: {
     async loadCharacter() {
-      const response = await axios.get(`https://rickandmortyapi.com/api/character/${this.id}`)
-      this.character = response.data
-      }
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/${this.id}`
+      );
+      this.character = response.data;
+
+      const episodeResponse = await axios.get(this.character.episode[this.character.episode.length - 1])
+      this.episodeTitle = episodeResponse.data.name;
+   
+    }
   },
 };
 </script>
