@@ -8,7 +8,8 @@
       <p class="card-text">Origen: {{ character.origin.name }}</p>
       <p class="card-text">Genero: {{ character.gender }}</p>
       <p class="card-text">Ultimo paradero: {{ character.location.name }}</p>
-      <p class="card-text">Primera Aparición: {{ episodeTitle }}</p>
+      <p class="card-text">Primera Aparición: {{ firstEpisodeTitle }}</p>
+      <p class="card-text">Ultima Aparición: {{ lastEpisodeTitle }}</p>
     </div>
   </div>
 </template>
@@ -22,7 +23,8 @@ export default {
     return {
       id: this.$route.params.id,
       character: Object,
-      episodeTitle:  String,
+      firstEpisodeTitle: String,
+      lastEpisodeTitle: String,
     };
   },
   created() {
@@ -35,10 +37,14 @@ export default {
       );
       this.character = response.data;
 
-      const episodeResponse = await axios.get(this.character.episode[this.character.episode.length - 1])
-      this.episodeTitle = episodeResponse.data.name;
-   
-    }
+      const firstEpisodeResponse = await axios.get(this.character.episode[0]);
+      this.firstEpisodeTitle = firstEpisodeResponse.data.name;
+
+      const lastEpisodeResponse = await axios.get(
+        this.character.episode[this.character.episode.length - 1]
+      );
+      this.lastEpisodeTitle = lastEpisodeResponse.data.name;
+    },
   },
 };
 </script>
