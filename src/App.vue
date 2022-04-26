@@ -1,14 +1,17 @@
 <template>
-  <Characters/>
+  <div>
+    <Navbar />
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Characters from './components/Characters.vue'
+import Navbar from "./components/generic/Navbar.vue"
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Characters
-  }
-}
+    Navbar
+  },
+};
 </script>
